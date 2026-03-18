@@ -1,0 +1,316 @@
+:root {
+    --bg-color: #050508;
+    --text-color: #f1f1f1;
+    --accent-color: #a78bfa; 
+    --card-bg: rgba(26, 27, 35, 0.6);
+    --secondary-text: #a1a1aa;
+    --border-footer: #1a1b23;
+}
+
+/* --- STYLE COMMUN AUX NÉBULEUSES --- */
+.nebula {
+    position: fixed;
+    filter: blur(100px);
+    z-index: -2;
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0.6; /* Plus discret pour ne pas gêner la lecture */
+    animation: nebulaFloat 15s infinite alternate ease-in-out;
+}
+
+/* 1. Nébuleuse Violette (Haut - Droite) */
+.nebula-1 {
+    top: -10%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.3), transparent 70%);
+}
+
+/* 2. Nébuleuse Bleue (Bas - Gauche) */
+.nebula-2 {
+    bottom: -10%;
+    left: -5%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.4), transparent 70%);
+    animation-delay: -5s; /* Décalage pour ne pas qu'elles bougent en même temps */
+}
+
+/* 3. Nébuleuse Rose/Magenta (Milieu - Droite) */
+.nebula-3 {
+    top: 40%;
+    right: 15%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(219, 39, 119, 0.15), transparent 70%);
+    animation-delay: -2s;
+}
+
+/* Animation de flottement doux */
+@keyframes nebulaFloat {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30px, -30px) scale(1.1); }
+}
+
+/* --- CANVAS (ÉTOILES) --- */
+#starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;       /* Le canvas est au-dessus de la nébuleuse */
+    background: transparent !important; /* IMPORTANT: Pour voir la nébuleuse à travers */
+}
+
+/* Petite animation pour donner de la vie à la nébuleuse */
+@keyframes nebulaPulse {
+    from {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.8;
+    }
+    to {
+        transform: scale(1.2) translate(-20px, 20px);
+        opacity: 1;
+    }
+}
+
+/* --- RESET & BASE --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+}
+
+html { 
+    scroll-behavior: auto; 
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+canvas {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    z-index: -1;
+    background: black;
+}
+
+/* --- NAVIGATION CENTRÉE --- */
+.navbar {
+    display: flex; 
+    align-items: center; 
+    padding: 15px 5%;
+    background-color: rgba(13, 14, 18, 0.85);
+    position: sticky; 
+    top: 0; 
+    z-index: 100;
+    border-bottom: 1px solid #2a2b36;
+    backdrop-filter: blur(15px);
+}
+
+.logo { 
+    font-size: 20px; 
+    font-weight: bold; 
+    color: #ffffff; 
+    flex: 1; 
+    min-width: 250px; 
+}
+
+.nav-menu { 
+    flex: 2; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    gap: 40px; 
+}
+
+.nav-links a {
+    color: var(--text-color); 
+    text-decoration: none; 
+    font-size: 0.9rem;
+    text-transform: uppercase; 
+    font-weight: 500; 
+    position: relative;
+    padding: 5px 0; 
+    transition: 0.3s; 
+    cursor: pointer;
+}
+
+.nav-links a::after {
+    content: ''; 
+    position: absolute; 
+    width: 0; 
+    height: 2px; 
+    bottom: 0; 
+    left: 0;
+    background-color: var(--accent-color); 
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after { 
+    width: 100%; 
+}
+
+.nav-contact { 
+    flex: 1; 
+    display: flex; 
+    justify-content: flex-end; 
+    min-width: 250px; 
+}
+
+.nav-contact-btn {
+    color: white; 
+    text-decoration: none; 
+    border: 1px solid var(--accent-color);
+    padding: 8px 18px; 
+    border-radius: 5px; 
+    font-size: 0.8rem; 
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-contact-btn:hover { 
+    background: var(--accent-color); 
+    color: #000; 
+}
+
+/* --- CONTENU --- */
+.hero {
+    text-align: center;
+    padding: 150px 20px;
+}
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    text-align: left;
+    height: 220px;
+}
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.profile-img {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 0 40px rgba(167, 139, 250, 0.2);
+}
+
+.section-container { 
+    padding: 100px 10%; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+}
+
+.section-title { 
+    font-size: 2.5rem; 
+    margin-bottom: 40px; 
+    color: white; 
+    font-weight: 700; 
+}
+
+.card {
+    background: var(--card-bg); 
+    padding: 40px; 
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    transition: 0.4s ease; 
+    margin-bottom: 30px; 
+    backdrop-filter: blur(10px);
+}
+
+.card:hover { 
+    border-color: var(--accent-color); 
+    transform: translateY(-5px); 
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.skill-card {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    transition: 0.3s;
+    border: 1px solid #2a2b36;
+}
+
+.skill-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+.skill-card h4 { 
+    margin-bottom: 10px; 
+    color: var(--accent-color); 
+}
+
+.skill-card ul { 
+    list-style: none; 
+    color: var(--secondary-text); 
+    font-size: 0.9rem; 
+}
+
+/* --- FOOTER & BORDURE ADOUCIE --- */
+footer { 
+    padding: 80px 10%; 
+    text-align: center; 
+    border-top: 1px solid var(--border-footer); 
+    background-color: #050508;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-btn-large {
+    background: var(--accent-color);
+    color: #000;
+    padding: 18px 50px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: inline-block;
+    margin-bottom: 30px;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-btn-large:hover { 
+    transform: scale(1.1); 
+    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5); 
+}
+
+@media (max-width: 768px) {
+    .nav-menu { display: none; }
+    .logo, .nav-contact { min-width: auto; }
+    .hero h1 { font-size: 2.5rem; }
+}
