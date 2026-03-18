@@ -1,7 +1,7 @@
 :root {
     --bg-color: #050508;
     --text-color: #f1f1f1;
-    --accent-color: #a78bfa; 
+    --accent-color: #bc9cc4bd; 
     --card-bg: rgba(26, 27, 35, 0.6);
     --secondary-text: #a1a1aa;
     --border-footer: #1a1b23;
@@ -14,8 +14,15 @@
     z-index: -2;
     pointer-events: none;
     border-radius: 50%;
-    opacity: 0.6; /* Plus discret pour ne pas gêner la lecture */
-    animation: nebulaFloat 15s infinite alternate ease-in-out;
+    opacity: 0.6; /* Correction : l'opacité va de 0 à 1 (5 était trop haut) */
+    will-change: transform; /* Boost de performance GPU */
+    animation: nebulaFloat 20s infinite alternate ease-in-out;
+}
+
+@keyframes nebulaFloat {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(50px, 40px) scale(1.1) rotate(5deg); }
+    100% { transform: translate(-30px, 70px) scale(1) rotate(-5deg); }
 }
 
 /* 1. Nébuleuse Violette (Haut - Droite) */
@@ -24,28 +31,72 @@
     right: -5%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(167, 139, 250, 0.3), transparent 70%);
+    background: radial-gradient(circle, rgba(167, 139, 250, 0.3), transparent 80%);
 }
 
 /* 2. Nébuleuse Bleue (Bas - Gauche) */
 .nebula-2 {
-    bottom: -10%;
-    left: -5%;
+    bottom: -25%;
+    left: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(30, 58, 138, 0.4), transparent 70%);
+    background: radial-gradient(circle, rgba(30, 58, 138, 0.4), transparent 60%);
     animation-delay: -5s; /* Décalage pour ne pas qu'elles bougent en même temps */
 }
 
-/* 3. Nébuleuse Rose/Magenta (Milieu - Droite) */
+/* 3. Nébuleuse BLEU (Milieu/HAUT - Droite) */
 .nebula-3 {
-    top: 40%;
-    right: 15%;
+    top: 20%;
+    right: -9%;
     width: 350px;
     height: 350px;
-    background: radial-gradient(circle, rgba(219, 39, 119, 0.15), transparent 70%);
+    background: radial-gradient(circle, rgba(10, 35, 173, 0.438), transparent 85%);
     animation-delay: -2s;
 }
+
+/* 4. Nébuleuse blanc nuanceur (Milieu/HAUT - Droite) */
+.nebula-4 {
+    bottom: 10%;
+    right: -9%;
+    width: 100px;
+    height: 50px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent 40%);
+    animation-delay: -4s; /* Décalage pour ne pas qu'elles bougent en même temps */
+}
+
+
+/* 5. Nébuleuse pourpre (Haut - Droite) */
+.nebula-5 {
+    top: 25%;
+    right: 9%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(132, 45, 158, 0.205), transparent 80%);
+    animation-delay: -1s;
+}
+
+/* 6. Nébuleuse Violette (Milieu - Gauche) */
+.nebula-6 {
+    bottom: 5%;
+    left: -10%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgb(177, 118, 172), transparent 40%);
+    animation-delay: -3s;
+}
+
+.nebula-7 {
+    bottom: 25%;
+    left: -10%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgb(255, 253, 255), transparent 25%);
+    animation-delay: -1s;
+}
+
+
+
+
 
 /* Animation de flottement doux */
 @keyframes nebulaFloat {
@@ -246,9 +297,9 @@ canvas {
     backdrop-filter: blur(10px);
 }
 
-.card:hover { 
-    border-color: var(--accent-color); 
-    transform: translateY(-5px); 
+.card:hover {
+    box-shadow: 0 0 20px rgba(187, 125, 202, 0.2);
+    border-color: var(--accent-color);
 }
 
 .skills-grid {
@@ -306,7 +357,7 @@ footer {
 
 .contact-btn-large:hover { 
     transform: scale(1.1); 
-    box-shadow: 0 0 30px rgba(167, 139, 250, 0.5); 
+    box-shadow: 0 0 30px rgba(228, 160, 255, 0.596); 
 }
 
 @media (max-width: 768px) {
