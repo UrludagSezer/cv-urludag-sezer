@@ -1,1 +1,0 @@
-# cv-urludag-sezer
